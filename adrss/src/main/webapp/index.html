@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>住所検索アプリ</title>
+     <script>
+        function searchAddress() {
+            var zipcode = document.getElementById("zipcode").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "SearchAddressServlet?zipcode=" + zipcode, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("address").value = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        function showMessage() {
+            var address = document.getElementById("address").value;
+            alert("登録された住所: " + address);
+        }
+    </script>
+</head>
+<body>
+    <h1>住所検索アプリ</h1>
+    <form>
+        <label for="zipcode">郵便番号:</label>
+        <input type="text" id="zipcode" name="zipcode"><br><br>
+        <label for="address">住所:</label>
+        <input type="text" id="address" name="address"><br><br>
+        <button type="button" onclick="searchAddress()">検索</button>
+        <button type="button" onclick="showMessage()">登録</button>
+    </form>
+</body>
+</html>
